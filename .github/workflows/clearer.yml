@@ -1,1 +1,20 @@
+# So the idea is that we check if /static/img/exported has any files. If it does, let's commit to remove them.
 
+name: Clearer
+on:
+  push:
+    branches:
+      - main
+jobs:
+  clearer:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Clearer
+        run: |
+          if [ "$(ls -A /static/img/exported)" ]; then
+            git rm /static/img/exported/*
+            git commit -m "Clearing up"
+            git push
+          fi
