@@ -1,0 +1,28 @@
+{
+    "products": {
+        
+    },
+    "apikeys": {
+    },
+    "analytics": {
+    },
+    "builds": {
+        "base/production": {
+            "templates": {
+                "index": "base/production/index.html",
+                "browse": "base/production/browse.html",
+                "generate": "base/production/generate.html",
+                "generating": "base/production/generating.html",
+                "checkout": "base/production/checkout.html"
+            },
+            "key": "base"
+        }
+    },
+    "admins": {
+        "perny": {
+            "password": "$2b$12$UDzZ9pQCQ4jUyxMAocBqWOLLSKHDtnCQhBlHIZuzBW/0oi3UqU/GO"
+        }
+    },
+    "coupons": {
+    }
+}
