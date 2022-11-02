@@ -12,9 +12,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Clearer
+      # we'll remove the files in /static/img/exported not the folder itself
         run: |
-          if [ "$(ls -A /static/img/exported)" ]; then
-            git rm /static/img/exported/*
-            git commit -m "Clearing up"
+          if [ "$(ls -A static/img/exported)" ]; then
+            git rm -r static/img/exported/*
+            git commit -m "Clearing /static/img/exported"
             git push
           fi
