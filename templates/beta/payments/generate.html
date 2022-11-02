@@ -1,0 +1,67 @@
+{% extends "beta/payments/base.html" %}
+
+{% block content %}
+<div class="container section">
+    <div class="row">
+        <div class="col-4">
+            <div class="card">
+                <img class="img-fluid rounded-circle shadow mt-3 mb-3 mx-5" src="{{ product['preview'] }}"
+                    alt="Product preview">
+                <h2 class="text-center">{{ product['name'] }}</h2>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <form aciton="" method="post" id="templateEdit">
+                        <h4 class="card-title mb-3">Configure your order</h4>
+                        {% for a in product["attr"].keys() %}
+                        {% if product["attr"][a]["type"] == "text" %}
+                        <div class="form-group mb-3">
+                            <label for="text-input-{{ a }}">{{ product["attr"][a]["name"] }}</label>
+                            <input type="text" id="templ-{{ a }}" name="templ-{{ a }}" value="RZ" class="form-control">
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                    </form>
+                    <button class="btn btn-primary w-100" asubmit="#templateEdit">{{ "Generate" if product["price"] == 0 else "Proceed to checkout" }}</button>
+                </div>
+            </div>
+        </div>
+        <div class="col w-100">
+            <div class="card card-body">
+                <h2>How does it work?</h2>
+                <p>RenderZone is a free online tool that allows you to create animated graphics for your social media
+                    accounts. It's easy to use, and you can create your own graphics in just a few minutes!</p>
+                <!-- step by step -->
+                <div class="row">
+                    <div class="col-4">
+                        <div class="card card-body card-plain card-primary card-pricing">
+                            <h3>Step 1</h3>
+                            <p>Choose your favorite template from our large collection of free templates.</p>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="card card-body card-plain card-primary card-pricing">
+                            <h3>Step 2</h3>
+                            <p>Customize your template with your own text and images to make it your own.</p>
+                        </div>
+                    </div>
+                    {% if product["price"] != 0 %}
+                    <div class="col-4">
+                        <div class="card card-body card-plain card-primary card-pricing">
+                            <h3>Step 3</h3>
+                            <p>Pay for your order through PayPal's secure payment gateway.</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                    <div class="col-4">
+                        <div class="card card-body card-plain card-primary card-pricing">
+                            <h3>Step {{ "4" if product["price"] != 0 else "3" }}</h3>
+                            <p>Send it over to our blazing fast rendering nodes and download your finished product.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

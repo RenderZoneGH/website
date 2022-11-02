@@ -1,0 +1,151 @@
+{% extends "admin/base.html.j2" %}
+
+{% block header %}
+<div class="col-sm-6">
+    <h1 class="m-0 text-dark">Dashboard</h1>
+</div>
+<div class="col-sm-6">
+    <ol class="breadcrumb float-sm-right">
+        <li class="breadcrumb-item"><a href="/admin">Admin</a></li>
+        <li class="breadcrumb-item active">Home</li>
+    </ol>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-3 col-6">
+        <!-- small box -->
+        <div class="small-box bg-info">
+            <div class="inner">
+                <h3>{{ db["analytics"]["renders"] | length }}</h3>
+
+                <p>Total Renders</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-eye"></i>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-6">
+        <!-- small box -->
+        <div class="small-box bg-success">
+            <div class="inner">
+                <h3>${{ extra["money"] | round(2) }}</h3>
+
+                <p>Gross Revenue</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-dollar-sign"></i>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-6">
+        <!-- small box -->
+        <div class="small-box bg-warning">
+            <div class="inner">
+                <h3>{{ extra["premiums"] }}</h3>
+
+                <p>Premium Renders</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-star"></i>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- renders chart (daily) -->
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Renders</h3>
+    </div>
+    <div class="card-body">
+        <div class="chart">
+            <canvas id="rendersChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+        </div>
+    </div>
+
+</div>
+
+
+{% endblock %}
+
+{% block charts %}
+<!--
+    {{ extra["date_renders"] }} is formatted like this:
+    {
+        "2020-05-01": 1,
+        "2020-05-02": 2,
+        "2020-05-03": 3,
+        ...
+    }
+
+    So let's turn that into a chart.
+
+-->
+
+<script>
+    var dates = [];
+
+    {% for date, count in extra["date_renders"].items() %}
+        dates.push("{{ date }}");
+    {% endfor %}
+
+
+    var renders = [];
+    {% for date, count in extra["date_renders"].items() %}
+        renders.push({{ count }});
+
+
+         
+    {% endfor %}    
+
+    var areaChartData = {
+        labels: dates,
+        datasets: [{
+            label: 'Renders',
+            backgroundColor: 'rgba(60,141,188,0.9)',
+            borderColor: 'rgba(60,141,188,0.8)',
+            pointRadius: false,
+            pointColor: '#3b8bba',
+            pointStrokeColor: 'rgba(60,141,188,1)',
+            pointHighlightFill: '#fff',
+            pointHighlightStroke: 'rgba(60,141,188,1)',
+            data: renders
+        }]
+    }
+
+    var areaChartOptions = {
+        maintainAspectRatio: false,
+        responsive: true,
+        legend: {
+            display: false
+        },
+        scales: {
+            xAxes: [{
+                gridLines: {
+                    display: false,
+                }
+            }],
+            yAxes: [{
+                gridLines: {
+                    display: false,
+                }
+            }]
+        }
+    }
+
+    //-------------
+    //- RENDER CHART -
+    //-------------
+
+    var rendersChartCanvas = $('#rendersChart').get(0).getContext('2d')
+    var rendersChart = new Chart(rendersChartCanvas, {
+        type: 'line',
+        data: areaChartData,
+        options: areaChartOptions
+    })
+
+
+</script>
+{% endblock %}

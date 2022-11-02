@@ -1,0 +1,306 @@
+{% extends "admin/base.html.j2" %}
+
+{% block header %}
+<div class="col-sm-6">
+    <h1 class="m-0 text-dark">Analytics</h1>
+</div>
+<div class="col-sm-6">
+    <ol class="breadcrumb float-sm-right">
+        <li class="breadcrumb-item"><a href="/admin">Admin</a></li>
+        <li class="breadcrumb-item active">Analytics</li>
+    </ol>
+</div>
+{% endblock %}
+
+{% block content %}
+<!--
+    Analytics shown:
+    - Total renders (daily)
+    - Total earnings (daily)
+    - Top used templates (pie chart)
+    - Free/Premium renders (pie chart)
+
+-->
+
+<!-- renders chart (daily) -->
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Renders</h3>
+    </div>
+    <div class="card-body">
+        <div class="chart">
+            <canvas id="rendersChart" style="height: 250px; min-height: 250px"></canvas>
+        </div>
+    </div>
+</div>
+
+<!-- earnings chart (daily) -->
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Earnings</h3>
+    </div>
+    <div class="card-body">
+        <div class="chart">
+            <canvas id="earningsChart" style="height: 250px; min-height: 250px"></canvas>
+        </div>
+    </div>
+</div>
+
+
+<!-- top templates chart (pie) -->
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Top Templates</h3>
+            </div>
+            <div class="card-body">
+                <div class="chart">
+                    <canvas id="topTemplatesChart" style="height: 250px; min-height: 250px"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Free/Premium Render Ratio</h3>
+            </div>
+            <div class="card-body">
+                <div class="chart">
+                    <canvas id="freePremiumChart" style="height: 250px; min-height: 250px"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block charts %}
+<!--
+    {{ ana["date_renders"] }} is formatted like this:
+    {
+        "2020-05-01": 1,
+        "2020-05-02": 2,
+        "2020-05-03": 3,
+        ...
+    }
+
+    So let's turn that into a chart.
+
+-->
+
+<script>
+    var dates = [];
+
+    {% for date, count in ana["date_renders"].items() %}
+    dates.push("{{ date }}");
+    {% endfor %}
+
+
+    var renders = [];
+
+    {% for date, count in ana["date_renders"].items() %}
+    renders.push({{ count }});
+    {% endfor %}
+
+    var areaChartData = {
+        labels: dates,
+        datasets: [{
+            label: 'Renders',
+            backgroundColor: 'rgba(60,141,188,0.9)',
+            borderColor: 'rgba(60,141,188,0.8)',
+            pointRadius: true,
+            pointColor: '#3b8bba',
+            pointStrokeColor: 'rgba(60,141,188,1)',
+            pointHighlightFill: '#fff',
+            pointHighlightStroke: 'rgba(60,141,188,1)',
+            data: renders
+        }]
+    }
+
+    var areaChartOptions = {
+        maintainAspectRatio: false,
+        responsive: true,
+        legend: {
+            display: false
+        },
+        scales: {
+            xAxes: [{
+                gridLines: {
+                    display: false,
+                }
+            }],
+            yAxes: [{
+                gridLines: {
+                    display: true,
+                }
+            }]
+        }
+    }
+
+    //-------------
+    //- RENDER CHART -
+    //-------------
+
+    var rendersChartCanvas = $('#rendersChart').get(0).getContext('2d')
+    var rendersChart = new Chart(rendersChartCanvas, {
+        type: 'line',
+        data: areaChartData,
+        options: areaChartOptions
+    })
+
+
+</script>
+
+<script>
+    var dates = [];
+
+    {% for date, count in ana["date_money"].items() %}
+    dates.push("{{ date }}");
+    {% endfor %}
+
+    var earnings = [];
+
+    {% for date, count in ana["date_money"].items() %}
+    earnings.push({{ count }});
+    {% endfor %}
+
+    var areaChartData = {
+        labels: dates,
+        datasets: [{
+            label: 'Earnings',
+            backgroundColor: 'rgba(60,141,188,0.9)',
+            borderColor: 'rgba(60,141,188,0.8)',
+            pointRadius: false,
+            pointColor: '#3b8bba',
+            pointStrokeColor: 'rgba(60,141,188,1)',
+            pointHighlightFill: '#fff',
+            pointHighlightStroke: 'rgba(60,141,188,1)',
+            data: earnings
+        }]
+    }
+
+    var areaChartOptions = {
+        maintainAspectRatio: false,
+        responsive: true,
+        legend: {
+            display: false
+        },
+        scales: {
+            xAxes: [{
+                gridLines: {
+                    display: false,
+                }
+            }],
+            yAxes: [{
+                gridLines: {
+                    display: true,
+                }
+            }]
+        }
+    }
+
+    //-------------
+    //- EARNINGS CHART -
+    //-------------
+
+    var earningsChartCanvas = $('#earningsChart').get(0).getContext('2d')
+    var earningsChart = new Chart(earningsChartCanvas, {
+        type: 'line',
+        data: areaChartData,
+        options: areaChartOptions
+    })
+
+</script>
+
+
+<script>
+
+    labels = [];
+
+    {% for template, count in ana["template_renders"].items() %}
+    labels.push(" {{ db['products'][template]['name'] }} ");
+    {% endfor %}
+
+    topTemplates = [];
+
+    {% for template, count in ana["template_renders"].items() %}
+    topTemplates.push({{ count }});
+    {% endfor %}
+
+    var pieChartCanvas = $('#topTemplatesChart').get(0).getContext('2d')
+    var pieData = {
+        labels: labels,
+        datasets: [
+            {
+                data: topTemplates,
+                backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef',
+                    '#3c8dbc', '#d2d6de'],
+            }
+        ]
+    }
+    var pieOptions = {
+        maintainAspectRatio: false,
+        responsive: true,
+    }
+    //Create pie or bar chart
+    // both will show
+    var pieChart = new Chart(pieChartCanvas, {
+        type: 'pie',
+        data: pieData,
+        options: pieOptions
+    })
+
+</script>
+
+<script>
+
+    labels = ["Free", "Premium"];
+
+    free = 0;
+    premium = 0;
+
+    {% for template, count in ana["template_renders"].items() %}
+    {% if db['products'][template]['price'] == 0 %}
+    free += {{ count }};
+    {% else %}
+    premium += {{ count }};
+    {% endif %}
+    {% endfor %}
+
+    topTemplates = [free, premium];
+
+    var pieChartCanvas = $('#freePremiumChart').get(0).getContext('2d')
+    var pieData = {
+        labels: labels,
+        datasets: [
+            {
+                data: topTemplates,
+                backgroundColor: ['#f56954', '#00a65a'],
+            }
+        ]
+    }
+
+    var pieOptions = {
+        maintainAspectRatio: false,
+        responsive: true,
+    }
+
+    //Create pie chart
+    var pieChart = new Chart(pieChartCanvas, {
+        type: 'pie',
+        data: pieData,
+        options: pieOptions
+    })
+
+
+
+
+</script>
+
+
+
+{% endblock %}

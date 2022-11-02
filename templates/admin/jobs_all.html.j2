@@ -1,0 +1,84 @@
+{% extends "admin/base.html.j2" %}
+
+{% block header %}
+<div class="col-sm-6">
+    <h1 class="m-0 text-dark">All Jobs</h1>
+</div>
+<div class="col-sm-6">
+    <ol class="breadcrumb float-sm-right">
+        <li class="breadcrumb-item"><a href="/admin">Admin</a></li>
+        <li class="breadcrumb-item"><a href="/admin/jobs">Jobs</a></li>
+        <li class="breadcrumb-item active">All Jobs</li>
+    </ol>
+</div>
+{% endblock %}
+
+{% block content %}
+
+{% if jobs | length <= 0 %}
+<div class="alert alert-info">
+    <h5><i class="icon fas fa-info"></i> No jobs found</h5>
+    There are no jobs in the database.
+</div>
+{% else %}
+
+{% for job in jobs %}
+<div class="card">
+    <div class="card-header">
+        <h2 class="card-title">{{ job["uuid"] }}</h2>
+        <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+            <!-- uncollapse the id="json-{{ job['uuid'] }}" element -->
+            <button type="button" class="btn btn-tool" data-toggle="collapse" data-target="#json-{{ job['uuid'] }}" aria-expanded="false" aria-controls="json-{{ job['uuid'] }}"><i class="fas fa-code"></i></button>
+            <a href="/static/img/exported/{{ job['uuid'] }}.gif" class="btn btn-tool" target="_blank"><i class="fas fa-download"></i></a>
+        </div>
+    </div>
+
+    <div class="card-body">
+        <strong>Template UUID:</strong> {{ job["templateid"] }}<br>
+        <!-- job["time"] is a unix timestamp, so we need to convert it to a human readable date -->
+        <strong>Created: </strong> {{ job["time"] | strftime }}<br>
+        {% if job.get("payment") %}
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Key</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Price</td>
+                    <td>${{ job["payment"]["price"] }}</td>
+                </tr>
+                <tr>
+                    <td>Discount</td>
+                    <td>{{ job["payment"]["discount"] }}%</td>
+                </tr>
+                <tr>
+                    <td>PayPal Transaction ID</td>
+                    <td>{{ job["payment"]["paypal"]["payment_id"] }}</td>
+                </tr>
+                <tr>
+                    <td>Paid</td>
+                    <td>{{ job["payment"]["paypal"]["paid"] }}</td>
+                </tr>
+
+            </tbody>
+        </table>
+        {% endif %}
+        <!-- codeblock that contains the json -->
+        <div class="card bg-light mt-3 collapse" id="json-{{ job['uuid'] }}">
+            <div class="card-body">
+                <p class="text-muted">{{ job }}</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endfor %}
+
+{% endif %}
+
+{% endblock %}

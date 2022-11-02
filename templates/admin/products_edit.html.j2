@@ -1,0 +1,150 @@
+{% extends "admin/base.html.j2" %}
+
+{% block header %}
+<div class="col-sm-6">
+    <h1 class="m-0 text-dark">Edit product <b>{{ product.name }}</b></h1>
+</div>
+<div class="col-sm-6">
+    <ol class="breadcrumb float-sm-right">
+        <li class="breadcrumb-item"><a href="/admin">Admin</a></li>
+        <li class="breadcrumb-item"><a href="/admin/products">Products</a></li>
+        <li class="breadcrumb-item active">{{ product.uuid }}</li>
+    </ol>
+</div>
+{% endblock %}
+
+{% block content %}
+
+<form action="" method="post">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Details</h3>
+                </div>
+                <div class="card-body">
+
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="name" name="name" value="{{ product.name }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="price">Price</label>
+                        <!-- dollar sign -->
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">$</span>
+                            </div>
+                            <input type="number" class="form-control" id="price" name="price"
+                                value="{{ product.price }}">
+                        </div>
+                        <small>If the value is not 0 the product will be considered a premium product. If the value is 0
+                            the product will be considered a free product.</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="category">Category</label>
+                        <select class="form-control" id="category" name="category">
+                            <option value="profile-picture" {% if product.category=="profile-picture" %}selected{% endif
+                                %}>
+                                Profile picture</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tags">Tags</label>
+                        <input type="text" class="form-control" id="tags" name="tags"
+                            value="{% for tag in product.tags %}{{ tag }},{% endfor %}">
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary float-right">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<div class="card">
+    <!-- daily renders chart -->
+    <div class="card-header">
+        <h3 class="card-title">Daily renders</h3>
+    </div>
+
+    <div class="card-body">
+        <div class="chart">
+            <canvas id="dailyRendersChart"
+                style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock %}
+
+{% block charts %}
+
+<script>
+    var dates = [];
+
+    {% for date in dailyrenders %}
+    dates.push("{{ date }}");
+    {% endfor %}
+
+    var dailyRenders = [];
+
+    {% for render in dailyrenders.values() %}
+    dailyRenders.push({{ render }});
+    {% endfor %}
+
+    var areaChartData = {
+        labels: dates,
+        datasets: [{
+            label: 'Daily renders',
+            backgroundColor: 'rgba(60,141,188,0.9)',
+            borderColor: 'rgba(60,141,188,0.8)',
+            pointRadius: false,
+            pointColor: '#3b8bba',
+            pointStrokeColor: 'rgba(60,141,188,1)',
+            pointHighlightFill: '#fff',
+            pointHighlightStroke: 'rgba(60,141,188,1)',
+            data: dailyRenders
+        }]
+    }
+
+    var areaChartOptions = {
+        maintainAspectRatio: false,
+        responsive: true,
+        legend: {
+            display: false
+        },
+        scales: {
+            xAxes: [{
+                gridLines: {
+                    display: false,
+                }
+            }],
+            yAxes: [{
+                gridLines: {
+                    display: false,
+                }
+            }]
+        }
+    }
+
+    //-------------
+    //- DAILY RENDER CHART -
+    //-------------
+
+    var dailyRendersChartCanvas = $('#dailyRendersChart').get(0).getContext('2d')
+    var dailyRendersChart = new Chart(dailyRendersChartCanvas, {
+        type: 'line',
+        data: areaChartData,
+        options: areaChartOptions
+    })
+
+
+</script>
+{% endblock %}

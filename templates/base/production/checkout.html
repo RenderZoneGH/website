@@ -1,0 +1,272 @@
+{% extends 'base/production/base.html' %}
+{% block content %}
+<div class="modal fade" id="fieldsModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Fields</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {% for f in job["fields"] %}
+                {{ product["attr"][f]["name"] }}: {{ job["fields"][f] }}<br>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container section">
+    {% include "base/production/flash.html" %}
+    <div class="row">
+        <div class="col-lg-4">
+            <h2 class="title">Order summary</h2>
+            <div class="card">
+                <div class="card-body">
+                    {% for c in job["payment"]["costs"] %}
+                    {% if c["type"] == "template" %}
+                    <div class="media align-items-center mb-3">
+                        <div class="col-md-5 col-6">
+                            <img src="{{ product['preview'] }}" alt="Rounded image"
+                                class="img-fluid rounded-circle shadow">
+                        </div>
+                        <div class="media-body">
+                            <h2 class="h6">{{ c.name }}</h2>
+                            <small class="d-block text-secondary">Customized <a href="#" data-toggle="modal"
+                                    data-target="#fieldsModal"><i class="fa fa-info-circle"></i></a></small>
+                        </div>
+                        <div class="media-body text-right">
+                            <span>${{ c.cost }}</span>
+                        </div>
+                    </div>
+                    {% elif c["type"] == "field" %}
+                    <div class="media align-items-center mb-3">
+
+                        <div class="media-body">
+                            <h2 class="h6">{{ product["attr"][c["name"]]["name"] }}</h2>
+                            <small class="d-block text-secondary">Field</small>
+                        </div>
+
+                        <div class="media-body text-right">
+                            <span>${{ c.cost }}</span>
+                        </div>
+
+
+
+                    </div>
+                    {% endif %}
+
+
+
+
+                    {% endfor %}
+
+                    <hr class="line-info mb-3">
+                    <form class="code-validate" id="discountForm" action="/coupon/checkout/{{ job['uuid'] }}"
+                        method="POST">
+                        {% if not job["payment"]["coupon"] %}
+                        <label>Discount</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="coupon" placeholder="Discount Code"
+                                aria-label="Discount">
+                        </div>
+                        <button class="btn btn-info btn-block" asubmit="#discountForm">Apply</button>
+                        {% else %}
+                        <label>Discount</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="coupon" placeholder="Discount Code"
+                                aria-label="Discount" value="{{ job['payment']['coupon'] }}" disabled>
+                        </div>
+                        <button class="btn btn-info btn-block" asubmit="#discountForm" disabled>Apply</button>
+                        <small class="d-block text-secondary">{{ job["payment"]["discount"] }}% discount applied with
+                            key <b>{{ job["payment"]["coupon"] }}</b></small>
+                        {% endif %}
+
+                    </form>
+                    <hr class="line-info mb-3">
+                    <div class="media align-items-center">
+                        <h3 class="h6">Total</h3>
+                        <div class="media-body text-right">
+                            <span class="font-weight-semi-bold">${{ job["payment"]["price"] }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8">
+            <form class="js-validate">
+                <div class="container">
+                    <h3 class="title">Billing details</h3>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="labels">
+                                First name
+                                <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" class="form-control" name="firstName" placeholder="Simon"
+                                aria-label="Simon" required="">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="labels">
+                                Last name
+                                <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" class="form-control" name="lastName" placeholder="Morgan"
+                                aria-label="Morgan" required="">
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="js-form-message mb-6">
+                                <label class="labels">
+                                    Email address
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <input type="email" class="form-control" name="emailAddress"
+                                    placeholder="simon.morgan@gmail.com" aria-label="simon.morgan@gmail.com"
+                                    required="">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="js-form-message mb-6">
+                                <label class="labels">
+                                    Discord handle
+                                </label>
+                                <input type="text" class="form-control" placeholder="Example#0001"
+                                    aria-label="Example#0001" name="discordHandle">
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <!-- tip amount selecton -->
+                    <div class="row">
+                        <div class="col">
+                            <h4 class="title">Payment</h4>
+                            {% if job["payment"]["price"] > 0 %}
+                            <div id="paypal-button-container">
+                            </div>
+                            <small class="text-muted">Credit and debit cards are accepted via PayPal.</small>
+                            {% else %}
+                            <button class="btn btn-primary" id="freeOrder">Generate!</button>
+                            <small class="text-muted d-block">You have a free order! Click the button to generate
+                                your
+                                order.</small>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://www.paypalobjects.com/api/checkout.js"></script>
+
+<script>
+    var origin = window.location.origin;
+    var CREATE_PAYMENT_URL = origin + '/api/v1/paypal/payment/{{ job.uuid }}';
+    var EXECUTE_PAYMENT_URL = origin + '/api/v1/paypal/payment/execute/{{ job.uuid }}';
+
+    paypal.Button.render({
+
+        env: 'sandbox',
+
+        commit: true,
+
+        style: {
+            base: {
+                color: '#333',
+                size: 'small',
+                shape: 'pill',
+                label: 'checkout',
+                tagline: false
+            }
+        },
+
+        payment: function () {
+            return paypal.request.post(CREATE_PAYMENT_URL).then(function (data) {
+                return data.paymentID;
+            });
+        },
+
+        onAuthorize: function (data) {
+            return paypal.request.post(EXECUTE_PAYMENT_URL, {
+                paymentID: data.paymentID,
+                payerID: data.payerID
+            }).then(function (res) {
+
+                console.log(res.success)
+                var mouseX = event.clientX;
+                var mouseY = event.clientY;
+                showLoader(mouseX, mouseY);
+                if (res.success) {
+                    setTimeout(function () {
+                        // get the form values
+                        var firstName = $('input[name=firstName]').val();
+                        var lastName = $('input[name=lastName]').val();
+                        var emailAddress = $('input[name=emailAddress]').val();
+                        var discordHandle = $('input[name=discordHandle]').val();
+                        r = new XMLHttpRequest();
+                        r.open("POST", "/api/v1/checkout/{{ job.uuid }}/form", false);
+                        r.setRequestHeader("Content-Type", "application/json");
+                        r.send(JSON.stringify({
+                            "firstName": firstName,
+                            "lastName": lastName,
+                            "emailAddress": emailAddress,
+                            "discordHandle": discordHandle
+                        }));
+                        window.location.href = "/checkout/{{ job.uuid }}/render";
+                    }, 600);
+                } else {
+                    alert("There was an error processing your payment. Please try again later.");
+                }
+            });
+        }
+
+    }, '#paypal-button-container');
+
+    // show the paypal button if the fields are filled
+    $("#paypal-button-container").hide();
+    $('input').on('input', function () {
+        if ($('input[name=firstName]').val() != "" && $('input[name=lastName]').val() != "" && $('input[name=emailAddress]').val() != "") {
+            $("#paypal-button-container").show();
+        } else {
+            $("#paypal-button-container").hide();
+        }
+    });
+
+    // when the free order button is clicked
+    $(document).on('click', '#freeOrder', function (e) {
+        var mouseX = e.clientX
+        var mouseY = e.clientY
+        showLoader(mouseX, mouseY);
+        // get the form values
+        var firstName = $('input[name=firstName]').val();
+        var lastName = $('input[name=lastName]').val();
+        var emailAddress = $('input[name=emailAddress]').val();
+        var discordHandle = $('input[name=discordHandle]').val();
+        r = new XMLHttpRequest();
+        r.open("POST", "/api/v1/checkout/{{ job.uuid }}/form", false);
+        r.setRequestHeader("Content-Type", "application/json");
+        r.send(JSON.stringify({
+            "firstName": firstName,
+            "lastName": lastName,
+            "emailAddress": emailAddress,
+            "discordHandle": discordHandle
+        }));
+        window.location.href = "/checkout/{{ job.uuid }}/render";
+    });
+</script>
+
+<style>
+    .paypal-button-text {
+        display: none !important;
+    }
+</style>
+{% endblock %}

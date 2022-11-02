@@ -1,0 +1,45 @@
+{% extends 'base/production/base.html' %}
+{% block header %}
+<div class="page-header">
+    <div class="container">
+        {% include "base/production/flash.html" %}
+        <div class="content-center brand">
+            <h2 id="status">Connecting...</h2>
+
+            <div class="progress-container progress-primary" id="barholder">
+                <div class="progress">
+                    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="15"
+                        aria-valuemin="0" aria-valuemax="100" id="pb">
+                    </div>
+                </div>
+            </div>
+            <small class="text-muted" id="renderid"></small>
+
+            <div class="row justify-content-center" onlyready>
+                <div class="col">
+                    <h3 onlyready>Results:</h3>
+                    <div class="card card-body">
+                        <img class="img-fluid rounded-circle shadow mt-3 mb-3" src="" alt="Product result" id="img">
+                        <button class="btn btn-primary w-100" id="download">Download</button>
+                    </div>
+                </div>
+                <div class="col">
+
+                    <h3 onlyready>Tip:</h3>
+                    <div class="card card-body">
+                        <iframe id='kofiframe'
+                            src='https://ko-fi.com/pernydev/?hidefeed=true&widget=true&embed=true&preview=true'
+                            style='border:none;width:100%;padding:4px;background:#f9f9f9; overflow: hidden;' height='500'
+                            title='pernydev'></iframe>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/render.js"></script>
+{% endblock %}
