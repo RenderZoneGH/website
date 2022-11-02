@@ -19,9 +19,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'd5rft6gy7h89ij0o+pu897u6y5t66r5e'
 
 
-jobs = {
-
-}
+jobs = {}
 
 
 def read():
