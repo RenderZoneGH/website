@@ -17,5 +17,7 @@ jobs:
           if [ "$(ls -A static/img/exported)" ]; then
             git rm -r static/img/exported/*
             git commit -m "Clearing /static/img/exported"
+            git config --global user.name "github-actions"
+            git config --global user.email "hey@renderzone.me"
             git push
           fi
