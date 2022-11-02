@@ -14,23 +14,25 @@ import requests
 from functools import wraps
 import paypalrestsdk
 import bcrypt
+import dotenv
+
+dotenv.load_dotenv()
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'd5rft6gy7h89ij0o+pu897u6y5t66r5e'
+app.config['SECRET_KEY'] = os.getenv("SECRET")
 
 
 jobs = {}
 
 
 def read():
-    with open('datab.json', 'r') as f:
+    with open(os.getenv("DB_FILE"), 'r') as f:
         return j.load(f)
 
 
 def write(data):
-    with open('datab.json', 'w') as f:
+    with open(os.getenv("DB_FILE"), 'w') as f:
         j.dump(data, f)
-
 
 class colours:
     SUCCESS = '\033[92m'
@@ -70,10 +72,10 @@ def onlyBuild(buildRepo):
 sio = s.Client()
 
 paypalrestsdk.configure({
-    "mode": "sandbox",
-    "client_id": "AcFmJ9SkkinQ3sPMEqazToc6guvz_bXU8K9q21OfpKWv3EEZfr-XMsu11PAf0OJ_TQUzYg_J9XOn3wp2",
-    "client_secret": "EDADEi6gyvZx644pTTtuwse4s7VgUoS849qQJ6NXRNTHFg7b2h-pUQAlj2d_8jOal7dKmmd7zE6YaOeH"
-})
+    "mode": "sandbox" if os.getenv("ENVIROMENT") == "dev" else "live",
+    "client_id": os.getenv("PAYPAL_CLIENT_ID"),
+    "client_secret": os.getenv("PAYPAL_CLIENT_SECRET")})
+    
 
 @app.route('/')
 @requires_template
@@ -694,7 +696,7 @@ def disconnect():
     rfail = True
     while True:
         try:
-            sio.connect('http://localhost:8080')
+            sio.connect(os.getenv("API_CLIENT_URL"))
             rfail = False
             break
         except:
@@ -719,10 +721,12 @@ def build_set(key):
 from api import *
 
 if __name__ == '__main__':
-    try:
-        sio.connect('http://localhost:5000')
-    except:
-        print(colours.FAIL, "Failed to connect to the render node!", colours.DEFAULT)
-        rfail = True
+    if os.getenv("API_CLIENT_ENABLED") == "true":
+        try:
+            sio.connect(os.getenv("API_CLIENT_URL"))
+        except:
+            print(colours.FAIL, "Failed to connect to the render node!", colours.DEFAULT)
+            rfail = True
 
-    app.run(debug=True, port=5001)
+    app.run(debug=True if os.getenv("ENVIORMENT") == "dev" else False, port=os.getenv("PORT"))
+
