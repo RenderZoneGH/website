@@ -2,7 +2,6 @@ import datetime
 from itertools import product
 import os
 import sys
-from api import *
 import time
 import socketio as s
 import uuid as u
