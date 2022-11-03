@@ -1,4 +1,4 @@
-from main import app, read, write, sendLog, request, jsonfy, paypalrestsdk, jobs, j
+from main import app, read, write, request, paypalrestsdk, jobs, j
 import humanize
 from discord_webhook import DiscordWebhook, DiscordEmbed
 

@@ -1,7 +1,5 @@
 import datetime
-from itertools import product
 import os
-import sys
 import time
 import socketio as s
 import uuid as u
