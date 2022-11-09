@@ -421,7 +421,13 @@ $(document).on('click', '[alink]', function (e) {
   var link = $(this).attr('alink');
   showLoader(e.clientX, e.clientY);
   setTimeout(function () {
-    window.location.href = link+"?ani=true&cX="+e.clientX+"&cY="+e.clientY;
+    // if the url already has query params, add & to the end of the url
+    if (link.indexOf('?') > -1) {
+      link += '&';
+    } else {
+      link += '?';
+    }
+    window.location.href = link+"ani=true&cX="+e.clientX+"&cY="+e.clientY;
   }, 600);
 });
 
@@ -455,18 +461,20 @@ $(document).on('keypress', 'form', function (e) {
 
 
 var colorRange = document.querySelector('.color-range')
-var randomRange = Math.floor(100*Math.random())
-var colorChoice = document.getElementById("color-choice")
+if (colorRange) {
+  var randomRange = Math.floor(100*Math.random())
+  var colorChoice = document.getElementById("color-choice")
 
-colorRange.addEventListener('input', function(e) {
-  var hue = ((this.value/100)*360).toFixed(0)
-  var hsl = "hsl("+ hue + ", 100%, 50%)"
-  var bgHsl = "hsl("+ hue + ", 100%, 95%)"
-  colorRange.style.color = hsl
-  colorChoice.style.color = hsl
-  colorChoice.innerHTML = hsl
-  document.body.style.background = bgHsl
-});
-colorRange.value = randomRange;
-var event = new Event('input');
-colorRange.dispatchEvent(event);
+  colorRange.addEventListener('input', function(e) {
+    var hue = ((this.value/100)*360).toFixed(0)
+    var hsl = "hsl("+ hue + ", 100%, 50%)"
+    var bgHsl = "hsl("+ hue + ", 100%, 95%)"
+    colorRange.style.color = hsl
+    colorChoice.style.color = hsl
+    colorChoice.innerHTML = hsl
+    document.body.style.background = bgHsl
+  });
+  colorRange.value = randomRange;
+  var event = new Event('input');
+  colorRange.dispatchEvent(event);
+}

@@ -1,0 +1,111 @@
+{
+	// Place your site workspace snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and 
+	// description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope 
+	// is left empty or omitted, the snippet gets applied to all languages. The prefix is what is 
+	// used to trigger the snippet and the body will be expanded and inserted. Possible variables are: 
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. 
+	// Placeholders with the same ids are connected.
+	// Example:
+	// "Print to console": {
+	// 	"scope": "javascript,typescript",
+	// 	"prefix": "log",
+	// 	"body": [
+	// 		"console.log('$1');",
+	// 		"$2"
+	// 	],
+	// 	"description": "Log output to console"
+	// }
+	"Initialize route function": {
+		// This snippet should surround the selected text with a function named init with the argument (route) it looks like this:
+		// def init(route):
+		// everything selected should be indented 1 tab
+		// keep in mind that text is selected for this snippet, we don't just overwrite the selected text
+		"scope": "python",
+		"prefix": "init",
+		"body": [
+			"def init(route):",
+			"\t$1$TM_SELECTED_TEXT",
+		],
+		"description": "Initialize route function"
+	},
+	"Create a route": {
+		// This snippet should just add a couple lines
+		"scope": "python",
+		"prefix": "!route",
+		"body": [
+			"from app import flask, request, render_template, redirect, flash, session",
+			"from app.util.animation import a",
+			"from app.util.db import read",
+			" ",
+			"def init(route):",
+			"\t$1"
+		]
+
+	},
+	"Create an API route": {
+		"scope": "python",
+		"prefix": "!route-api",
+		"body": [
+			"from app import flask, request, render_template, redirect, flash, session",
+			"from app.util.db import read",
+			"import json as j",
+			" ",
+			"def init(route):",
+			"\t$1"
+		]
+	},
+	// Quick import snippets
+	"Import: DB (read, write)": {
+		"scope": "python",
+		"prefix": "!import-db",
+		"body": [
+			"from app.util.db import read, write"
+		]
+	},
+	"Import: DB (read)": {
+		"scope": "python",
+		"prefix": "!import-db-read",
+		"body": [
+			"from app.util.db import read"
+		]
+	},
+	"Import: Animation Handler": {
+		"scope": "python",
+		"prefix": "!import-animation",
+		"body": [
+			"from app.util.animation import a"
+		]
+	},
+	"Import: Flask": {
+		"scope": "python",
+		"prefix": "!import-flask",
+		"body": [
+			"from app import flask, request, render_template, redirect, flash, session"
+		]
+	},
+	"Import: ENV": {
+		"scope": "python",
+		"prefix": "!import-env",
+		"body": [
+			"from app.util.env import env"
+		]
+	},
+	"Import: JSON": {
+		"scope": "python",
+		"prefix": "!import-json",
+		"body": [
+			"import json as j"
+		]
+	},
+	"!return-template": {
+		// This snippet should just add 1 line
+		// return render_template('[cursor here].html', session=session, animation=a [cursor here afterwords])
+		"scope": "python",
+		"prefix": "!return-template",
+		"body": [
+			"return render_template('$1.html', session=session, animation=a(request) $2)"
+		]
+	
+		
+	}
+}

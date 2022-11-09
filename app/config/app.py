@@ -1,4 +1,4 @@
-from app.app.env import env
+from app.util.env import env
 
 config = {
     """
