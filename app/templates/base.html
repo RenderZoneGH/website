@@ -35,27 +35,7 @@
  
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
  </head>
- 
- {% if session.get("buildRepo") != "base/production" %}
- <div class="modal fade" id="buildModal" tabindex="-1" role="dialog"
-   aria-hidden="true">
-   <div class="modal-dialog" role="document">
-     <div class="modal-content">
-       <div class="modal-body">
-         <p>
-           You're currently in the <code>beta/payments</code> build. Which may not be equal to the
-           <code>base/production</code> build.
-         </p>
-         <p>
-           We recommend to use the latest build stable build. But if you're feeling adventurous, you can continue!
-         </p>
-         <a href="/build/set/base?repo=base/production" class="btn btn-primary w-100">Switch to base/production</a>
-       </div>
-     </div>
-   </div>
- </div>
- {% endif %}
- 
+
  
  <body class="index-page">
    <!-- Navbar -->
@@ -89,13 +69,6 @@
            </div>
          </div>
          <ul class="navbar-nav">
-           {% if session.get("buildRepo") != "base/production" %}
-           <li class="nav-item">
-             <a data-toggle="modal" data-target="#buildModal" class="badge badge-default">
-               You're using the build <strong>beta/payments</strong>
-             </a>
-           </li>
-           {% endif %}
          </ul>
        </div>
      </div>

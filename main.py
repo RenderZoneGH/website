@@ -1,8 +1,7 @@
+exception (So the file isn't run)
+
 import datetime
-from itertools import product
 import os
-import sys
-from api import *
 import time
 import socketio as s
 import uuid as u
@@ -74,8 +73,9 @@ sio = s.Client()
 paypalrestsdk.configure({
     "mode": "sandbox" if os.getenv("ENVIROMENT") == "dev" else "live",
     "client_id": os.getenv("PAYPAL_CLIENT_ID"),
-    "client_secret": os.getenv("PAYPAL_CLIENT_SECRET")})
-    
+    "client_secret": os.getenv("PAYPAL_CLIENT_SECRET")
+})
+
 
 @app.route('/')
 @requires_template
@@ -718,7 +718,7 @@ def build_set(key):
     """
     return alert
     
-from api import *
+import api
 
 if __name__ == '__main__':
     if os.getenv("API_CLIENT_ENABLED") == "true":
