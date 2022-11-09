@@ -54,7 +54,7 @@ function getValueFromRange(prosent, min, max) {
 
 fetcher = setInterval(function() {
     r = new XMLHttpRequest();
-    r.open("GET", "/job/"+id+"/fetch", true);
+    r.open("GET", "/api/v1/job/"+id, true);
     r.onload = function() {
         if (r.status == 200) {
             var data = r.responseText;

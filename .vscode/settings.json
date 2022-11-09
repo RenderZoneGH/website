@@ -5,7 +5,16 @@
         "**/.hg": true,
         "**/CVS": true,
         "**/.DS_Store": true,
-        "**/Thumbs.db": true
+        "**/Thumbs.db": true,
+        "app/routes/__pycache__": true,
+        "app/__pycache__": true,
+        "app/util/__pycache__": true,
+        "app/routes/api/__pycache__": true
     },
-    "hide-files.files": []
+    "hide-files.files": [
+        "app/routes/__pycache__",
+        "app/__pycache__",
+        "app/util/__pycache__",
+        "app/routes/api/__pycache__"
+    ]
 }
