@@ -1,5 +1,5 @@
 from app import flask, request, render_template, redirect, url_for, flash, session, jobs
-from app.util.animation import a
+from app.util.animation import a as an
 from app.util.db import read
 import uuid as u
 import os
@@ -11,7 +11,7 @@ def init(route):
             dbc = read()
             products = dbc['products']
             if uuid in products:
-                return render_template('generate.html', session=session, animation=a(request), product=products[uuid], db=dbc)
+                return render_template('generate.html', session=session, animation=an(request), product=products[uuid], db=dbc)
             else:
                 flash("Unknown product!", "error")
                 return redirect(url_for('index'))

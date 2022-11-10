@@ -50,6 +50,7 @@ checkout_generate.init("/checkout/<uuid>/render")
 | Route: /coupon/checkout/<uuid>
 """
 import app.routes.claim_coupon as coupon_checkout
+coupon_checkout.init("/coupon/checkout/<uuid>")
 
 """
 | -------------------------------------------------------------------
