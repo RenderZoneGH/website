@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block header %}
+<div class="page-header header-filter">
+  <div class="container">
+    <div class="content-center brand">
+      <h1 class="h1-seo">RenderZone</h1>
+      <h3>Coming soon...</h3>
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  function doc_keyUp(e) {if (e.ctrlKey && e.key === '.') {document.location.href = "/admin";}}document.addEventListener('keyup', doc_keyUp, false);
+</script>
+{% endblock %}

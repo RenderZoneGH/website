@@ -9,12 +9,14 @@
         "app/routes/__pycache__": true,
         "app/__pycache__": true,
         "app/util/__pycache__": true,
-        "app/routes/api/__pycache__": true
+        "app/routes/api/__pycache__": true,
+        "app/routes/admin/__pycache__": true
     },
     "hide-files.files": [
         "app/routes/__pycache__",
         "app/__pycache__",
         "app/util/__pycache__",
-        "app/routes/api/__pycache__"
+        "app/routes/api/__pycache__",
+        "app/routes/admin/__pycache__"
     ]
 }

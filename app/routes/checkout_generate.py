@@ -1,6 +1,6 @@
 from app import flask, request, render_template, redirect, url_for, flash, session, jobs
 from app.util.animation import a
-from app.util.db import read
+from app.util.db import read, write
 import uuid as u
 import jinja2
 import json as j
@@ -17,6 +17,8 @@ def init(route):
             if job.get("paypal", {"paid": False})["paid"] == False and job['payment']['price'] != 0:
                 flash("Payment not paid!", "error")
                 return redirect(url_for('index'))
+            job['payment']['paid'] = True
+            
 
             
             # Let's render the product

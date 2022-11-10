@@ -15,7 +15,7 @@ def init(route):
                     flash("Unknown product!", "error")
                     return redirect(url_for('index'))
                 product = products[job['templateid']]
-                return render_template("checkout.html", session=session, db=dbc, animation=a(), product=product, uuid=uuid, job=job)
+                return render_template("checkout.html", session=session, db=dbc, animation=a(request), product=product, uuid=uuid, job=job)
             else:
                 flash("Unknown product!", "error")
                 return redirect(url_for('index'))
