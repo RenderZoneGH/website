@@ -702,22 +702,6 @@ def disconnect():
         except:
             time.sleep(5)
 
-@app.route('/build/set/<key>')
-def build_set(key):
-    builds = read()['builds']
-    buildRepo = request.args.get("repo")
-    if buildRepo in builds:
-        if builds[buildRepo]["key"] == key:
-            session["buildRepo"] = buildRepo
-            return redirect("/")
-    alert = """
-    <script>
-        alert("Invalid key!");
-        window.location.href = "/";
-    </script>
-    """
-    return alert
-    
 import api
 
 if __name__ == '__main__':

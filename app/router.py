@@ -44,6 +44,15 @@ checkout_generate.init("/checkout/<uuid>/render")
 
 """
 | -------------------------------------------------------------------
+| Claim Coupon
+| -------------------------------------------------------------------
+|
+| Route: /coupon/checkout/<uuid>
+"""
+import app.routes.claim_coupon as coupon_checkout
+
+"""
+| -------------------------------------------------------------------
 | Generating
 | -------------------------------------------------------------------
 |
@@ -132,3 +141,84 @@ admin_logout.init("/admin/logout")
 """
 import app.routes.admin.analytics as admin_analytics
 admin_analytics.init("/admin/analytics")
+
+"""
+| -------------------------------------------------------------------
+| Admin: Jobs
+| -------------------------------------------------------------------
+|
+| Route: /admin/jobs
+"""
+import app.routes.admin.jobs as admin_jobs
+admin_jobs.init("/admin/jobs")
+
+"""
+| -------------------------------------------------------------------
+| Admin: All Jobs
+| -------------------------------------------------------------------
+|
+| Route: /admin/jobs/all
+"""
+import app.routes.admin.all_jobs as admin_jobs_all
+admin_jobs_all.init("/admin/jobs/all")
+
+"""
+| -------------------------------------------------------------------
+| Admin: Products
+| -------------------------------------------------------------------
+|
+| Route: /admin/products
+"""
+import app.routes.admin.products as admin_products
+admin_products.init("/admin/products")
+
+"""
+| -------------------------------------------------------------------
+| Admin: Edit Product
+| -------------------------------------------------------------------
+|
+| Route: /admin/products/edit/<uuid>
+"""
+import app.routes.admin.edit_template as admin_edit_template
+admin_edit_template.init("/admin/products/edit/<uuid>")
+
+"""
+| -------------------------------------------------------------------
+| Admin: Coupons
+| -------------------------------------------------------------------
+|
+| Route: /admin/products/coupons
+"""
+import app.routes.admin.coupons as admin_coupons
+admin_coupons.init("/admin/products/coupons")
+
+"""
+| -------------------------------------------------------------------
+| Admin: Edit Coupon
+| -------------------------------------------------------------------
+|
+| Route: /admin/products/coupons/edit/<code>
+"""
+import app.routes.admin.edit_coupon as admin_edit_coupon
+admin_edit_coupon.init("/admin/products/coupons/edit/<code>")
+
+"""
+| -------------------------------------------------------------------
+| Admin: Delete Coupon
+| -------------------------------------------------------------------
+|
+| Route: /admin/products/coupons/delete/<code>
+"""
+import app.routes.admin.delete_coupon as admin_delete_coupon
+admin_delete_coupon.init("/admin/products/coupons/delete/<code>")
+
+"""
+| -------------------------------------------------------------------
+| Admin: Create Coupon
+| -------------------------------------------------------------------
+|
+| Route: /admin/products/coupons/new
+"""
+import app.routes.admin.new_coupon as admin_create_coupon
+admin_create_coupon.init("/admin/products/coupons/new")
+
