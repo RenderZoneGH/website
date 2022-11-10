@@ -1,4 +1,4 @@
-from app import flask, request, render_template, redirect, url_for, flash, session, jobs
+from app import flask, request, render_template, redirect, flash, session, jobs
 from app.util.animation import a
 from app.util.db import read
 import uuid as u

@@ -87,3 +87,48 @@ api_job.init("/job/<uuid>")
 import app.routes.api.paypal_payment as api_paypal
 api_paypal.init("/paypal/payment/<jobuuid>")
 
+"""
+| -------------------------------------------------------------------
+                    Admin Routes
+| -------------------------------------------------------------------
+"""
+
+"""
+| -------------------------------------------------------------------
+| Admin: Index
+| -------------------------------------------------------------------
+|
+| Route: /admin
+"""
+import app.routes.admin.index as admin_index
+admin_index.init("/admin")
+
+"""
+| -------------------------------------------------------------------
+| Admin: Login
+| -------------------------------------------------------------------
+|
+| Route: /admin/login
+"""
+import app.routes.admin.login as admin_login
+admin_login.init("/admin/login")
+
+"""
+| -------------------------------------------------------------------
+| Admin: Logout
+| -------------------------------------------------------------------
+|
+| Route: /admin/logout
+"""
+import app.routes.admin.logout as admin_logout
+admin_logout.init("/admin/logout")
+
+"""
+| -------------------------------------------------------------------
+| Admin: Dashboard
+| -------------------------------------------------------------------
+|
+| Route: /admin/analytics
+"""
+import app.routes.admin.analytics as admin_analytics
+admin_analytics.init("/admin/analytics")

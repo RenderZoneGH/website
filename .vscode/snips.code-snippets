@@ -97,6 +97,13 @@
 			"import json as j"
 		]
 	},
+	"Import: Admin Decorator": {
+		"scope": "python",
+		"prefix": "!import-admin",
+		"body": [
+			"from app.util.decorators.admin import requiresAdmin"
+		]
+	},
 	"!return-template": {
 		// This snippet should just add 1 line
 		// return render_template('[cursor here].html', session=session, animation=a [cursor here afterwords])
