@@ -1,4 +1,4 @@
-from app import flask, request, render_template, redirect, url_for, flash, session, jobs
+from app import flask, request, render_template, redirect, url_for, flash, session, jobs, sio
 from app.util.animation import a
 from app.util.db import read, write
 import uuid as u
@@ -33,12 +33,11 @@ def init(route):
 
             product["ae"]["assets"] = assets
 
-            """
             sio.emit("job", {
                 "uuid": uuid,
-                "product": product
+                "product": product,
+                "key": "FD2ACrbQLKaIIJmpySYaFyH39LIjQTy9",
             })
-            """
             # This code will start working once the WebSocket server is implemented
             cY = request.args.get("cY")
             cX = request.args.get("cX")
