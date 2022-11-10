@@ -35,3 +35,5 @@ def _jinja2_filter_datetime(date, fmt=None):
     return native.strftime(format)
 
 import app.router
+import app.connection
+sio.connect(env("RENDER_API_URL", "http://localhost:3000"))
