@@ -23,19 +23,20 @@ def json(data):
         print(colours.SUCCESS, 'Job ' +
               data['uuid']+' is done!', colours.DEFAULT)
 
-        dbc = read()
-        dbc['analytics']['renders'].append({
-            "uuid": data['uuid'],
-            "templateid": jobs[data['uuid']]['templateid'],
-            "time": time.time()
-        })
+        if jobs[data['uuid']].get("hide", False):
+            dbc = read()
+            dbc['analytics']['renders'].append({
+                "uuid": data['uuid'],
+                "templateid": jobs[data['uuid']]['templateid'],
+                "time": time.time()
+            })
 
-        if "payment" in jobs[data['uuid']]:
-            dbc['analytics']['renders'][-1]["payment"] = jobs[data['uuid']]['payment']
-            dbc['analytics']['renders'][-1]["payment"]["paypal"] = jobs[data['uuid']]['paypal']
-        
-        write(dbc)
-
+            if "payment" in jobs[data['uuid']]:
+                dbc['analytics']['renders'][-1]["payment"] = jobs[data['uuid']]['payment']
+                dbc['analytics']['renders'][-1]["payment"]["paypal"] = jobs[data['uuid']]['paypal']
+            
+            write(dbc)
+    
     elif "error" in data:
         jobs[data['uuid']]['done'] = True
         jobs[data['uuid']]['error'] = data['error']

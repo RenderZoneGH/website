@@ -97,6 +97,19 @@ api_job.init("/job/<uuid>")
 import app.routes.api.paypal_payment as api_paypal
 api_paypal.init("/paypal/payment/<jobuuid>")
 
+
+"""
+| -------------------------------------------------------------------
+| API: Start job
+| -------------------------------------------------------------------
+|
+| Route: /api/v1/job/start
+| Method: POST
+| No authentication required
+"""
+import app.routes.api.createjob as api_job_start
+api_job_start.init("/job/start")
+
 """
 | -------------------------------------------------------------------
                     Admin Routes

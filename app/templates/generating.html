@@ -3,7 +3,7 @@
 <div class="page-header">
     <div class="container">
         {% include "flash.html" %}
-        <div class="content-center brand">
+        <div class="content-center">
             <h2 id="status">Connecting...</h2>
 
             <div class="progress-container progress-primary" id="barholder">
@@ -15,22 +15,28 @@
             </div>
             <small class="text-muted" id="renderid"></small>
 
-            <div class="row justify-content-center" onlyready>
-                <div class="col">
+            <div class="row mt-5" onlyready>
+                <div class="col-md-6">
                     <h3 onlyready>Results:</h3>
                     <div class="card card-body">
-                        <img class="img-fluid rounded-circle shadow mt-3 mb-3" src="" alt="Product result" id="img">
+                        <img class="img-fluid rounded-circle shadow mt-3 mb-3 h-100" src="" alt="Product result"
+                            id="img" style="min-height: 100%; aspect-ratio: 1/1; object-fit: contain;">
                         <button class="btn btn-primary w-100" id="download">Download</button>
                     </div>
+                    <p class="d-block d-md-none d-lg-none d-xl-none">If you like the result, please
+                        consider donating to support the
+                        project.</p>
+                    <a href="https://ko-fi.com/pernydev" target="_blank"
+                        class="btn btn-primary btn-round btn-lg d-block d-md-none d-lg-none d-xl-none">Donate</a>
                 </div>
-                <div class="col">
+                <div class="col d-none d-lg-block d-xl-block">
 
                     <h3 onlyready>Tip:</h3>
                     <div class="card card-body">
                         <iframe id='kofiframe'
                             src='https://ko-fi.com/pernydev/?hidefeed=true&widget=true&embed=true&preview=true'
-                            style='border:none;width:100%;padding:4px;background:#f9f9f9; overflow: hidden;' height='500'
-                            title='pernydev'></iframe>
+                            style='border:none;width:100%;padding:4px;background:#f9f9f9; overflow: hidden;'
+                            height='500' title='pernydev'></iframe>
                     </div>
 
                 </div>
