@@ -1,7 +1,6 @@
 from app import flask, request, render_template, redirect, flash, session
 from app.util.animation import a
 from app.util.db import read
-import bcrypt
 
 def init(route):
     @flask.route(route, methods=['GET', 'POST'])
@@ -15,7 +14,7 @@ def init(route):
             dbc = read()
             if username in dbc['admins']:
                 # Check password using bcrypt
-                if bcrypt.checkpw(password.encode('utf-8'), dbc['admins'][username]['password'].encode('utf-8')):
+                if dbc['admins'][username]['password'] == password:
                     session["admin"] = True
                     session["username"] = username
                     flash("Logged in!", "success")
