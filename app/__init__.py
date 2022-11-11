@@ -21,7 +21,7 @@ paypalrestsdk.configure({
 # Let's add a before_request handler
 @flask.before_request
 def before_request():
-    if "admin" in request.path or "static" in request.path:
+    if "admin" in request.path or "static" in request.path or "api" in request.path:
         return 
     if not session.get("admin", False):
         return render_template('coming-soon.html', session=session, animation=a(request), nofooter=True)
