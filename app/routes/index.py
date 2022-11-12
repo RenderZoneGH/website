@@ -47,8 +47,6 @@ def init(route):
             "paid": paid
         }
 
-        print(dpr)
-
         return render_template("index.html", products=dpr, session=session, db=dbc, animation=a(request))
 
 
