@@ -4,7 +4,7 @@ from app.util.db import read
  
 def init(route):
     @flask.route(route)
-    def index():
+    def robots():
         robots = """
 # This is the robots.txt file for RenderZone. We are working on an API so if you wan't to access our library of templates, you can do so by using our API.
 
@@ -17,4 +17,3 @@ disallow: /generating/
 disallow: /coupon/
 """
         return robots
-        
