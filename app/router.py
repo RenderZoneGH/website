@@ -62,6 +62,15 @@ coupon_checkout.init("/coupon/checkout/<uuid>")
 import app.routes.generating as generating
 generating.init("/generating/<uuid>")
 
+"""
+| -------------------------------------------------------------------
+| Robots.txt
+| -------------------------------------------------------------------
+|
+| Route: /robots.txt
+"""
+import app.routes.robots as robots
+robots.init("/robots.txt")
 
 
 """
