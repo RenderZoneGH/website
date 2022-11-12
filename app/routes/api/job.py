@@ -9,7 +9,9 @@ def init(route):
     @flask.route('/api/v1/'+route, methods=['GET'])
     def job(uuid):
         if uuid in jobs:
-            return j.dumps(jobs[uuid])
+            job = jobs[uuid]
+            job.get("url") == None
+            return j.dumps(job)
         else:
             return j.dumps({
                 "status": "error",
