@@ -11,7 +11,7 @@
                     <img class="img-fluid shadow mb-3" src="{{ product['preview-mockup'] }}" alt="Product result">
                     <h3 class="title mb-1 mt-0 text-center">{{ product.name }}</h3>
                     <p class="description">{{ product.description }}</p>
-                    <button class="btn btn-primary w-100" alink="/generate/{{ product['uuid'] }}">Generate</button>
+                    <a class="btn btn-primary w-100" alink href="/generate/{{ product['uuid'] }}">Generate</a>
                 </div>
             </div>
             {% endfor %}

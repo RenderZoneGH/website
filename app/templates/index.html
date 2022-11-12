@@ -33,12 +33,9 @@
         <div class="col-md-3 col-10 card">
             <img class="img-fluid shadow mt-3 mb-3" src="{{ p['preview-mockup'] }}" alt="Card image cap">
             <h2 class="text-center">{{ p['name'] }}</h2>
-            <button class="btn btn-primary mb-3" alink="/generate/{{ p['uuid'] }}">Generate</button>
+            <a class="btn btn-primary mb-3" alink href="/generate/{{ p['uuid'] }}">Generate</a>
         </div>
         {% endfor %}
-    </div>
-    <div class="row justify-content-center">
-      <button class="btn btn-primary col-md-3 col-10" alink="/browse?price=free">Browse all free templates</button>
     </div>
 
     <h2 class="text-center">Premium Templates</h2>
@@ -47,14 +44,14 @@
         <div class="col-md-3 col-10 card">
             <img class="img-fluid shadow mt-3 mb-3" src="{{ p['preview-mockup'] }}" alt="Card image cap">
             <h2 class="text-center">{{ p['name'] }}</h2>
-            <button class="btn btn-primary mb-3" alink="/generate/{{ p['uuid'] }}">Generate</button>
+            <a class="btn btn-primary mb-3" alink href="/generate/{{ p['uuid'] }}">Generate</a>
         </div>
         {% endfor %}
 
     </div>
 
     <div class="row justify-content-center">
-      <button class="btn btn-primary col-md-3 col-10" alink="/browse?price=premium">Browse all premium templates</button>
+      <button class="btn btn-primary col-md-3 col-10" alink href="/browse">Browse all templates</button>
     </div>
     
 
