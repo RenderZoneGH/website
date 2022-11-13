@@ -4,7 +4,7 @@ import json as j
 import humanize
 
 def init(route):
-    @flask.route("/ api/v1/" + route, methods=["GET"])
+    @flask.route("/api/v1/" + route, methods=["GET"])
     def stats():
         dbc = read()
         if "Authorization" not in request.headers:
