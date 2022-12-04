@@ -23,7 +23,7 @@
                         <div class="form-group mb-3">
                             <label for="color">{{ product["attr"][a]["name"] }} {% if product["attr"][a]["required"] %}<span class="text-danger">*</span>{% endif %} {% if product["attr"][a].get("cost", 0) > 0 %} +${{ product["attr"][a]["cost"] }} <a href="#" data-toggle="tooltip" data-placement="top" title="There is an additional charge if this option is filled out."><i class="fas fa-info-circle"></i></a>{% endif %}</label>
                             <!-- slider -->
-                            <input type="range" class="color-range d-block w-100" id="color" name="color" min="0" max="360" value="0">
+                            <input type="range" class="color-range d-block w-100" id="color" name="templ-color" min="0" max="360" value="0">
                         </div>
                         {% elif product["attr"][a]["type"] == "file" %}
                         <div class="form-group">
