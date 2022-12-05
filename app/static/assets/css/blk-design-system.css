@@ -21729,6 +21729,7 @@ input.datetimepicker[data-color="yellow"]+.bootstrap-datetimepicker-widget.dropd
     /* transitions */
     --transition-duration: 0.1s;
     --transition-easing: ease-out;
+    --hue-deg: calc(var(--hue) * 1deg);
 }
 
 /*------------------------------------*\
@@ -21871,4 +21872,8 @@ input.datetimepicker[data-color="yellow"]+.bootstrap-datetimepicker-widget.dropd
 
 #cf_alert_div {
     display: none !important;
+}
+
+.huethis {
+    filter: hue-rotate(var(--hue-deg));
 }

@@ -240,6 +240,7 @@ $(document).on("click", "[alink]", function (e) {
     $(document).on("keypress", "form", function (e) {
         if (13 == e.which) return e.preventDefault(), $("*[asubmit='" + $(this).attr("id") + "']").click(), !1;
     });
+
 const rangeInput = document.querySelector('.js-range-input');
 const output = document.querySelector('.js-range-output');
 const root = document.documentElement;
