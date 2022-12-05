@@ -14,8 +14,8 @@
  * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
  */ function getQuery(
-    e
-) {
+     e
+ ) {
     for (var t = window.location.search.substring(1).split("&"), a = 0; a < t.length; a++) {
         var o = t[a].split("=");
         if (o[0] == e) return o[1];
@@ -65,10 +65,10 @@ function debounce(e, t, a) {
 }
 navigator.platform.indexOf("Win") > -1
     ? (0 != $(".tab-content .table-responsive").length &&
-          $(".table-responsive").each(function () {
-              new PerfectScrollbar($(this)[0]);
-          }),
-      $html.addClass("perfect-scrollbar-on"))
+        $(".table-responsive").each(function () {
+            new PerfectScrollbar($(this)[0]);
+        }),
+        $html.addClass("perfect-scrollbar-on"))
     : $html.addClass("perfect-scrollbar-off"),
     $(document).ready(function () {
         $('[data-toggle="tooltip"], [rel="tooltip"]').tooltip(),
@@ -113,11 +113,11 @@ navigator.platform.indexOf("Win") > -1
             $(".carousel").carousel({ interval: !1 });
     }),
     $collapse.length &&
-        ($collapse.on({
-            "hide.bs.collapse": function () {
-                hideNavbarCollapse($collapse);
-            },
-        }),
+    ($collapse.on({
+        "hide.bs.collapse": function () {
+            hideNavbarCollapse($collapse);
+        },
+    }),
         $collapse.on({
             "hidden.bs.collapse": function () {
                 hiddenNavbarCollapse($collapse);
@@ -127,25 +127,25 @@ navigator.platform.indexOf("Win") > -1
         ($toggle = $(this)),
             1 == blackKit.misc.navbar_menu_visible
                 ? ($("html").removeClass("nav-open"),
-                  (blackKit.misc.navbar_menu_visible = 0),
-                  $("#bodyClick").remove(),
-                  setTimeout(function () {
-                      $toggle.removeClass("toggled");
-                  }, 550))
+                    (blackKit.misc.navbar_menu_visible = 0),
+                    $("#bodyClick").remove(),
+                    setTimeout(function () {
+                        $toggle.removeClass("toggled");
+                    }, 550))
                 : (setTimeout(function () {
-                      $toggle.addClass("toggled");
-                  }, 580),
-                  $((div = '<div id="bodyClick"></div>'))
-                      .appendTo("body")
-                      .click(function () {
-                          $("html").removeClass("nav-open"),
-                              (blackKit.misc.navbar_menu_visible = 0),
-                              setTimeout(function () {
-                                  $toggle.removeClass("toggled"), $("#bodyClick").remove();
-                              }, 550);
-                      }),
-                  $("html").addClass("nav-open"),
-                  (blackKit.misc.navbar_menu_visible = 1));
+                    $toggle.addClass("toggled");
+                }, 580),
+                    $((div = '<div id="bodyClick"></div>'))
+                        .appendTo("body")
+                        .click(function () {
+                            $("html").removeClass("nav-open"),
+                                (blackKit.misc.navbar_menu_visible = 0),
+                                setTimeout(function () {
+                                    $toggle.removeClass("toggled"), $("#bodyClick").remove();
+                                }, 550);
+                        }),
+                    $("html").addClass("nav-open"),
+                    (blackKit.misc.navbar_menu_visible = 1));
     }),
     (blackKit = {
         misc: { navbar_menu_visible: 0 },
@@ -159,17 +159,17 @@ navigator.platform.indexOf("Win") > -1
                 t = e.data("nav-image");
             991 > $(window).width() || $("body").hasClass("burger-menu")
                 ? void 0 != t &&
-                  e
-                      .css("background", "url('" + t + "')")
-                      .removeAttr("data-nav-image")
-                      .css("background-size", "cover")
-                      .addClass("has-image")
+                e
+                    .css("background", "url('" + t + "')")
+                    .removeAttr("data-nav-image")
+                    .css("background-size", "cover")
+                    .addClass("has-image")
                 : void 0 != t &&
-                  e
-                      .css("background", "")
-                      .attr("data-nav-image", "" + t)
-                      .css("background-size", "")
-                      .removeClass("has-image");
+                e
+                    .css("background", "")
+                    .attr("data-nav-image", "" + t)
+                    .css("background-size", "")
+                    .removeClass("has-image");
         },
         initDatePicker: function () {
             0 != $datepicker.length &&
@@ -240,16 +240,24 @@ $(document).on("click", "[alink]", function (e) {
     $(document).on("keypress", "form", function (e) {
         if (13 == e.which) return e.preventDefault(), $("*[asubmit='" + $(this).attr("id") + "']").click(), !1;
     });
-var colorRange = document.querySelector(".color-range");
-if (colorRange) {
-    var t = Math.floor(100 * Math.random()),
-        a = document.getElementById("color-choice");
-    colorRange.addEventListener("input", function (e) {
-        var t = (this.value * 360).toFixed(0),
-            o = "hsl(" + t + ", 100%, 50%)";
-        (colorRange.style.color = o), (a.style.color = o), (a.innerHTML = o), (document.body.style.background = "hsl(" + t + ", 100%, 95%)");
-    }),
-        (colorRange.value = t);
-    var o = new Event("input");
-    colorRange.dispatchEvent(o);
+const rangeInput = document.querySelector('.js-range-input');
+const output = document.querySelector('.js-range-output');
+const root = document.documentElement;
+
+function setHue() {
+    output.value = rangeInput.value + '°';
+    root.style.setProperty('--hue', rangeInput.value);
 }
+
+function setDefaultState() {
+    rangeInput.focus();
+    setHue();
+}
+
+rangeInput.addEventListener('input', function () {
+    setHue();
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    setDefaultState();
+});
