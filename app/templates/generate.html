@@ -16,30 +16,54 @@
                         {% for a in product["attr"].keys() %}
                         {% if product["attr"][a]["type"] == "text" %}
                         <div class="form-group mb-3">
-                            <label for="text-input-{{ a }}">{{ product["attr"][a]["name"] }} {% if product["attr"][a]["required"] %}<span class="text-danger">*</span>{% endif %} {% if product["attr"][a].get("cost", 0) > 0 %} +${{ product["attr"][a]["cost"] }} <a href="#" data-toggle="tooltip" data-placement="top" title="There is an additional charge if this option is filled out."><i class="fas fa-info-circle"></i></a>{% endif %}</label>
-                            <input type="text" id="templ-{{ a }}" name="templ-{{ a }}" value='{{ product["attr"][a]["value"] }}' class="form-control">
+                            <label for="text-input-{{ a }}">{{ product["attr"][a]["name"] }} {% if
+                                product["attr"][a]["required"] %}<span class="text-danger">*</span>{% endif %} {% if
+                                product["attr"][a].get("cost", 0) > 0 %} +${{ product["attr"][a]["cost"] }} <a href="#"
+                                    data-toggle="tooltip" data-placement="top"
+                                    title="There is an additional charge if this option is filled out."><i
+                                        class="fas fa-info-circle"></i></a>{% endif %}</label>
+                            <input type="text" id="templ-{{ a }}" name="templ-{{ a }}"
+                                value='{{ product["attr"][a]["value"] }}' class="form-control">
                         </div>
                         {% elif product["attr"][a]["type"] == "color-slider" %}
                         <div class="form-group mb-3">
-                            <label for="color">{{ product["attr"][a]["name"] }} {% if product["attr"][a]["required"] %}<span class="text-danger">*</span>{% endif %} {% if product["attr"][a].get("cost", 0) > 0 %} +${{ product["attr"][a]["cost"] }} <a href="#" data-toggle="tooltip" data-placement="top" title="There is an additional charge if this option is filled out."><i class="fas fa-info-circle"></i></a>{% endif %}</label>
+                            <label for="color">{{ product["attr"][a]["name"] }} {% if product["attr"][a]["required"]
+                                %}<span class="text-danger">*</span>{% endif %} {% if product["attr"][a].get("cost", 0)
+                                > 0 %} +${{ product["attr"][a]["cost"] }} <a href="#" data-toggle="tooltip"
+                                    data-placement="top"
+                                    title="There is an additional charge if this option is filled out."><i
+                                        class="fas fa-info-circle"></i></a>{% endif %}</label>
                             <!-- slider -->
-                            <input type="range" class="color-range d-block w-100" id="color" name="templ-color" min="0" max="360" value="0">
+                            <div class="c-range">
+                                <div class="c-range__holder">
+                                    <input class="c-range__slider js-range-input" id="hue" type="range" value="0"
+                                        max="360" name="templ-{{ a }}">
+                                    <output class="c-range__output js-range-output" for="hue"></output>
+                                </div>
+                            </div>
                         </div>
                         {% elif product["attr"][a]["type"] == "file" %}
                         <div class="form-group">
-                            <label for="file-input-{{ a }}">{{ product["attr"][a]["name"] }} {% if product["attr"][a]["required"] %}<span class="text-danger">*</span>{% endif %} {% if product["attr"][a].get("cost", 0) > 0 %} +${{ product["attr"][a]["cost"] }} <a href="#" data-toggle="tooltip" data-placement="top" title="There is an additional charge if this option is filled out."><i class="fas fa-info-circle"></i></a>{% endif %}</label>
+                            <label for="file-input-{{ a }}">{{ product["attr"][a]["name"] }} {% if
+                                product["attr"][a]["required"] %}<span class="text-danger">*</span>{% endif %} {% if
+                                product["attr"][a].get("cost", 0) > 0 %} +${{ product["attr"][a]["cost"] }} <a href="#"
+                                    data-toggle="tooltip" data-placement="top"
+                                    title="There is an additional charge if this option is filled out."><i
+                                        class="fas fa-info-circle"></i></a>{% endif %}</label>
                             <span class="btn btn-primary btn-file d-block">
                                 <span new="background">Select file</span>
                                 <input type="file" id="background" name="background" accept="image/*">
                                 <span exists="background"></span>
                             </span>
-                            <small class="form-text text-muted">Please use a 1:1 aspect ratio image. (Image or GIF)</small>
+                            <small class="form-text text-muted">Please use a 1:1 aspect ratio image. (Image or
+                                GIF)</small>
 
                         </div>
                         {% endif %}
                         {% endfor %}
                     </form>
-                    <button class="btn btn-primary w-100" asubmit="#templateEdit">{{ "Generate" if product["price"] == 0 else "Proceed to checkout" }}</button>
+                    <button class="btn btn-primary w-100" asubmit="#templateEdit">{{ "Generate" if product["price"] == 0
+                        else "Proceed to checkout" }}</button>
                 </div>
             </div>
         </div>
