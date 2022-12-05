@@ -10,6 +10,8 @@ flask = Flask(__name__)
 flask.config['SECRET_KEY']  = env("SECRET_KEY", "secret")
 sio = socketio.Client()
 
+
+
 jobs = {}
 
 paypalrestsdk.configure({
@@ -36,4 +38,7 @@ def _jinja2_filter_datetime(date, fmt=None):
 
 import app.router
 import app.connection
-sio.connect(env("RENDER_API_URL", "http://localhost:3000"))
+
+if not env("RENDER_API_DISABLED", False):
+    sio.connect(env("RENDER_API_URL", "http://localhost:3000"))
+

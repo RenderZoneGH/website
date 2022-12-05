@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-4    ">
             <div class="card">
-                <img class="img-fluid rounded-circle shadow mt-3 mb-3 mx-5" src="{{ product['preview'] }}"
+                <img class="img-fluid rounded-circle shadow mt-3 mb-3 mx-5 huethis" src="{{ product['preview'] }}"
                     alt="Product preview">
                 <h2 class="text-center">{{ product['name'] }}</h2>
             </div>
@@ -23,7 +23,7 @@
                                     title="There is an additional charge if this option is filled out."><i
                                         class="fas fa-info-circle"></i></a>{% endif %}</label>
                             <input type="text" id="templ-{{ a }}" name="templ-{{ a }}"
-                                value='{{ product["attr"][a]["value"] }}' class="form-control">
+                                value='{{ product["attr"][a]["value"] }}' class="form-control ">
                         </div>
                         {% elif product["attr"][a]["type"] == "color-slider" %}
                         <div class="form-group mb-3">
