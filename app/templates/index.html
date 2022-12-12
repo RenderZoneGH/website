@@ -30,7 +30,7 @@
     <h2 class="text-center">Free Templates</h2>
     <div class="row justify-content-center">
         {% for p in products["free"] %}
-        <div class="col-md-3 col-10 card">
+        <div class="col-md-3 col-10 card mx-2">
             <img class="img-fluid shadow mt-3 mb-3" src="{{ p['preview-mockup'] }}" alt="Card image cap">
             <h2 class="text-center">{{ p['name'] }}</h2>
             <a class="btn btn-primary mb-3" alink href="/generate/{{ p['uuid'] }}">Generate</a>
@@ -41,7 +41,7 @@
     <h2 class="text-center">Premium Templates</h2>
     <div class="row justify-content-center">
         {% for p in products["paid"] %}
-        <div class="col-md-3 col-10 card">
+        <div class="col-md-3 col-10 card mx-2">
             <img class="img-fluid shadow mt-3 mb-3" src="{{ p['preview-mockup'] }}" alt="Card image cap">
             <h2 class="text-center">{{ p['name'] }}</h2>
             <a class="btn btn-primary mb-3" alink href="/generate/{{ p['uuid'] }}">Generate</a>
