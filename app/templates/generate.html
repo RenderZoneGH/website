@@ -2,11 +2,11 @@
 {% block content %}
 <div class="container section">
     {% include "flash.html" %}
-    <div class="row">
+    <div class="row mx-auto">
         <div class="col-md-4    ">
             <div class="card">
-                <img class="img-fluid rounded-circle shadow mt-3 mb-3 mx-5 huethis" src="{{ product['preview'] }}"
-                    alt="Product preview">
+                <img class="img-fluid rounded-circle shadow mt-3 mb-3 huethis mx-3" src="{{ product['preview'] }}"
+                    alt="Product preview" style="aspect-ratio: 1/1; object-fit: cover;">
                 <h2 class="text-center">{{ product['name'] }}</h2>
             </div>
             <div class="card">
