@@ -5,6 +5,7 @@
     "apikeys": {
     },
     "analytics": {
+        "renders": []
     },
     "builds": {
         "base/production": {
