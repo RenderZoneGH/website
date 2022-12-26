@@ -25,7 +25,7 @@ paypalrestsdk.configure({
 def before_request():
     if "admin" in request.path or "static" in request.path or "api" in request.path or "robots.txt" in request.path:
         return 
-    if not session.get("admin", False):
+    if not session.get("admin", False) or not (session.get("accesskey", "key") == env("cskey", "key")):
         return render_template('coming-soon.html', session=session, animation=a(request), nofooter=True)
 
 @flask.template_filter('strftime')
