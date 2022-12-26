@@ -8,11 +8,29 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="form-group">
-                    <label for="hex">HEX</label>
-                    <input type="color" class="form-control" id="hex" value="#000000">
+                <div class="form-row">
+                    <div class="form-group col-10">
+                        <input type="text" class="form-control" id="hexInput" placeholder="HEX" style="text-transform: uppercase; color: #000000;">
+        
+                    </div>
+
+                    <div class="form-group col-2">
+                        <input type="color" class="form-control" id="hex" value="#000000">
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    // update the text field with the color and vice versa (no jquery)
+    document.getElementById('hex').addEventListener('input', function () {
+        document.getElementById('hexInput').value = this.value;
+    });
+
+    document.getElementById('hexInput').addEventListener('input', function () {
+        document.getElementById('hex').value = this.value;
+    });
+
+</script>

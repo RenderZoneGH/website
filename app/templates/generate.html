@@ -150,6 +150,7 @@
     // We have no jQuery here.
     // So we have to use the vanilla JS way to get the DOM element.
     let hex = document.getElementById('hex');
+    let hexInput = document.getElementById('hexInput');
     let hue = document.getElementById('hue');
     // Add an event listener to the HEX input field
     hex.addEventListener('input', function () {
@@ -157,6 +158,13 @@
         hue.value = Math.round(hexToHue(hex.value));
         setHue();
     });
+
+    hexInput.addEventListener('input', function () {
+        // Update the HUE input field with the calculated HUE degree value
+        hue.value = Math.round(hexToHue(hexInput.value));
+        setHue();
+    });
+
 
 
 </script>
