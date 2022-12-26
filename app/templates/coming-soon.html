@@ -5,14 +5,16 @@
     <div class="content-center brand">
       <h1 class="h1-seo">RenderZone</h1>
       <h3>Coming soon...</h3>
-      </a>
+
+      <small>If you've been lucky enough to get your hands on a magical key, then you're in for a wild ride! Follow the link provided to unlock hidden realms and embark on epic profile pictures. Go forth and conquer, if you dare!</small>
     </div>
   </div>
 </div>
 {% endblock %}
 
+
 {% block scripts %}
 <script>
-  function doc_keyUp(e) {if (e.ctrlKey && e.key === '.') {document.location.href = "/admin";}}document.addEventListener('keyup', doc_keyUp, false);
+  function doc_keyUp(e) { if (e.ctrlKey && e.key === '.') { document.location.href = "/admin"; } } document.addEventListener('keyup', doc_keyUp, false);
 </script>
 {% endblock %}
