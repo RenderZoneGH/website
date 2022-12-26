@@ -28,7 +28,7 @@
                                             class="fas fa-info-circle"></i></a>{% endif %}
                                 </label>
                                 <input type="text" id="templ-{{ a }}" name="templ-{{ a }}"
-                                    value='{{ product["attr"][a]["value"] }}' class="form-control ">
+                                    value='{{ product["attr"][a]["value"] }}' class="form-control " maxlength="9"/>
                             </div>
                         </div>
                         {% elif product["attr"][a]["type"] == "color-slider" %}
