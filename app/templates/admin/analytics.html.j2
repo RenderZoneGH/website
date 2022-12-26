@@ -222,7 +222,11 @@
     labels = [];
 
     {% for template, count in ana["template_renders"].items() %}
+    {% if template == "Custom" %}
+    labels.push("API Call");
+    {% else %}
     labels.push(" {{ db['products'][template]['name'] }} ");
+    {% endif %}
     {% endfor %}
 
     topTemplates = [];
@@ -264,10 +268,12 @@
     premium = 0;
 
     {% for template, count in ana["template_renders"].items() %}
+    {% if not template == "Custom" %}
     {% if db['products'][template]['price'] == 0 %}
     free += {{ count }};
     {% else %}
     premium += {{ count }};
+    {% endif %}
     {% endif %}
     {% endfor %}
 
