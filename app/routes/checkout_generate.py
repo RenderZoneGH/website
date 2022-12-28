@@ -19,19 +19,8 @@ def init(route):
                 return redirect(url_for('index'))
             job['payment']['paid'] = True
             
-            sizetable = {
-                1: "240",
-                2: "205",
-                3: "170",
-                4: "135",
-                5: "100",
-                6: "80",
-                7: "75",
-                8: "68",
-                9: "60"
-            }
 
-            
+        
             # Let's render the product
             product = read()['products'][job['templateid']]
             # product["ae"]["assets"] is a list of assets. It might contain calls for fields using Jinja2
@@ -39,7 +28,7 @@ def init(route):
             
             assets = j.dumps(product["ae"]["assets"])
             # run assets through jinja2
-            assets = jinja2.Template(assets).render(fields=job['fields'], sizetable=sizetable)
+            assets = jinja2.Template(assets).render(fields=job['fields'], jinja=read()['products'][job['templateid']]['_JinjaTables'])
             assets = j.loads(assets)
 
             product["ae"]["assets"] = assets

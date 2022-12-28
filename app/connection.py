@@ -22,6 +22,8 @@ def json(data):
         jobs[data['uuid']]['display'] = data['display']
         print(colours.SUCCESS, 'Job ' +
               data['uuid']+' is done!', colours.DEFAULT)
+            
+        
 
         if not jobs[data['uuid']].get("hide", False):
             dbc = read()
